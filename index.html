@@ -24,7 +24,7 @@
 		<title>Otaku-Family</title>
 	</head>
 
-	<body>
+	<body onload="init()">
 
 		<!-- Start Header/Navigation -->
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
@@ -51,7 +51,7 @@
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 						<li><a class="nav-link" href="#"><img src="images/user.svg"></a></li>
 						<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
-						<span class="count" style="background-color: #f9bf29; border-radius: 50%; height: 25px; width: 25px; text-align: center;">2</span>
+						<span class="count" id="count" style="background-color: #f9bf29; border-radius: 50%; height: 25px; width: 25px; text-align: center;">2</span>
 					</ul>
 				</div>
 			</div>
@@ -95,13 +95,13 @@
 
 					<!-- Start Column 2 -->
 					<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-						<a class="product-item" href="cart.html">
+						<a class="product-item" href="#cart.html" >
 							<img src="images/product-1.png" class="img-fluid product-thumbnail">
 							<h3 class="product-title">One Peace</h3>
 							<strong class="product-price">$12.000</strong>
 						
-							<span class="icon-cross" >
-								<img src="images/cross.svg" class="img-fluid" >
+							<span class="icon-cross" onclick="add()">
+								<img src="images/cross.svg" class="img-fluid"  >
 							</span>
 						</a>
 						
