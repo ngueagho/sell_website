@@ -19,13 +19,14 @@ function getLocalStorage(key) {
 
 
 // foction pour supprimer un local storage
-localStorage.removeItem('myValue');
-localStorage.clear();
+// localStorage.removeItem('myValue');
+// localStorage.clear();
 // setLocalStorage('root', "root")
 
 
 
 function init() {
+    // setLocalStorage('root', "root")
     document.getElementById("count").innerHTML= getLocalStorage('current_value');
 }
 
