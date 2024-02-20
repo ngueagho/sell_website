@@ -19,45 +19,30 @@ function getLocalStorage(key) {
 
 
 // foction pour supprimer un local storage
-// localStorage.removeItem('myValue');
-// localStorage.clear();
-// setLocalStorage('root', "root")
+        // localStorage.removeItem('cle_de_lelement');
+        // localStorage.clear();
+
+
+// definition de la valeur de depart du contenu du panier
+document.getElementById("count").innerHTML= getLocalStorage('current_value');
 
 
 
-function init() {
-    // setLocalStorage('root', "root")
-    document.getElementById("count").innerHTML= getLocalStorage('current_value');
-}
 
-
-// function init() {
-//     // initialisation de la valeur de départ du panier
-//     if (localStorage.getItem('current_value') === null || document.readyState === 'loading') {
-//       // L'élément n'existe pas dans le local storage ou la page n'est pas encore chargée complètement
-//       setLocalStorage('current_value', 0);
-//     }
-  
-//     let currentValue = getLocalStorage('current_value');
-//     document.getElementById("count").innerHTML = currentValue;
-// }
   
 
 
 function add() {
 
         // L'élément existe dans le local storage
-        // document.getElementById("count").innerHTML= getLocalStorage('current_value');
         current_value = parseInt(getLocalStorage('current_value'));
 
         //recuperation de l'element panier
     
-
         current_value +=1;
 
         setLocalStorage('current_value', current_value);
 
         //affectation de la nouvelle valeur 
         document.getElementById("count").innerHTML= getLocalStorage('current_value');
-
 }
