@@ -6,7 +6,6 @@ function setLocalStorage(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
 
-
 // fonction pour recuperer les elements dans  le local storage
 function getLocalStorage(key) {
     if (localStorage.getItem(key) == null) {
@@ -17,11 +16,9 @@ function getLocalStorage(key) {
     }
 }
 
-
 // foction pour supprimer un local storage
         // localStorage.removeItem('cle_de_lelement');
         // localStorage.clear();
-
 
 // definition de la valeur de depart du contenu du panier
 document.getElementById("count").innerHTML= getLocalStorage('current_value');
