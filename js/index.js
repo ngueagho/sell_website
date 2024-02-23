@@ -101,16 +101,12 @@ function add(id) {
 }   
 
 
-let data = {
-    imageUrl : 'images/product-1.png',
-    title: 'habit1', 
-    price: 15000
-}
 
 
-// const tableBody = document.getElementById('table');
 
-const tbody = document.getElementById('table');
+
+// fonction pour ajouter les articles du panier dans la page card
+const tbody = document.getElementById('table1');
 
 function createTableRows(dataList) {
     // const tbody = document.querySelector('#tableBody');
@@ -122,11 +118,14 @@ function createTableRows(dataList) {
   }
   
   function createRow(data) {
+    
     const rowTemplate = document.createElement('tr');
+
+    
   
     const productThumbnailCell = document.createElement('td');
     const imgElement = document.createElement('img');
-    imgElement.src = data.imageUrl;
+    imgElement.src = data.url;
     imgElement.alt = 'Image';
     imgElement.classList.add('img-fluid');
     productThumbnailCell.classList.add('product-thumbnail');
@@ -141,17 +140,9 @@ function createTableRows(dataList) {
   
     const price1Cell = document.createElement('td');
     const spanPrice1Label = document.createElement('span');
-    spanPrice1Label.id = 'price' + data.index + '1';
-    spanPrice1Label.innerText = `${data.price} XAF`;
+    spanPrice1Label.id = data.name;
+    spanPrice1Label.innerText = `${data.prix} XAF`;
     price1Cell.appendChild(spanPrice1Label);
-
-
-    // const productNameCell2 = document.createElement('td');
-    // const h2Element2 = document.createElement('h2');
-    // h2Element2.className = 'h5 text-black';
-    // h2Element2.innerText = data.title;
-    // productNameCell2.classList.add('product-name');
-    // productNameCell2.appendChild(h2Element2);
 
     const Quantity = document.createElement('td');
     const divQuantity = document.createElement('div');
@@ -163,7 +154,7 @@ function createTableRows(dataList) {
                 buttondivdivQuantity.className = 'btn btn-outline-black decrease';
                 buttondivdivQuantity.type = 'button';
                 buttondivdivQuantity.innerHTML = '&minus;'
-                buttondivdivQuantity.innerText = '-'
+                // buttondivdivQuantity.innerText = '-'
         divdivQuantity.appendChild(buttondivdivQuantity)
 
         const inputdivQuantity = document.createElement('input');
@@ -172,14 +163,14 @@ function createTableRows(dataList) {
             inputdivQuantity.placeholder = '';
             inputdivQuantity.ariaLabel = 'Example text with button addon';
             inputdivQuantity.ariaDescribedBy = 'button-addon1';
-            inputdivQuantity.value = '1';
+            inputdivQuantity.value = `${data.quantite}`;
         const div2divQuantity = document.createElement('div');
             div2divQuantity.className = 'input-group-append';
             const button2divdivQuantity = document.createElement('button');
                 button2divdivQuantity.className = 'btn btn-outline-black increase';
                 button2divdivQuantity.type = 'button';
                 button2divdivQuantity.innerHTML = '&plus;'
-                button2divdivQuantity.innerText = '+'
+                // button2divdivQuantity.innerText = '+'
         div2divQuantity.appendChild(button2divdivQuantity)
 
     divQuantity.appendChild(divdivQuantity)
@@ -190,7 +181,7 @@ function createTableRows(dataList) {
     const price2Cell = document.createElement('td');
     const spanPrice2Label = document.createElement('span');
     spanPrice2Label.id = 'price' + data.index + '1';
-    spanPrice2Label.innerText = `${data.price} XAF`;
+    spanPrice2Label.innerText = `${data.prix*data.quantite} XAF`;
     price2Cell.appendChild(spanPrice2Label);
 
     const cros = document.createElement('td');
@@ -204,43 +195,13 @@ function createTableRows(dataList) {
   
     const qtyContainer = document.createElement('td');
     qtyContainer.classList.add('quantity-container');
-  
-    // ... (les autres parties restent inchangées)
-  
-    // function createInputQuantity() {
-    //   const inputQtyAmount = document.createElement('input');
-    //   inputQtyAmount.type = 'text';
-    //   inputQtyAmount.className = 'form-control text-center quantity-amount';
-    //   inputQtyAmount.placeholder = '';
-    //   inputQtyAmount.ariaLabel = 'Example text with button addon';
-    //   inputQtyAmount.ariaDescribedBy = 'button-addon1';
-    //   inputQtyAmount.value = '1';
-    //   return inputQtyAmount;
-    // }
-  
-    // const decreaseButton = document.createElement('button');
-    // decreaseButton.className = 'btn btn-outline-black decrease';
-    // decreaseButton.type = 'button';
-    // decreaseButton.innerText = '-';
-  
-    // const increaseButton = document.createElement('button');
-    // increaseButton.className = 'btn btn-outline-black increase';
-    // increaseButton.type = 'button';
-    // increaseButton.innerText = '+';
-  
-    // const buttonsGroup = document.createElement('div');
-    // buttonsGroup.className = 'input-group-append';
-    // buttonsGroup.appendChild(decreaseButton);
-    // buttonsGroup.appendChild(increaseButton);
-  
-    // qtyContainer.appendChild(createInputQuantity());
-    // qtyContainer.appendChild(buttonsGroup);
-  
+
+
+
     rowTemplate.appendChild(productThumbnailCell);
     rowTemplate.appendChild(productNameCell);
     rowTemplate.appendChild(price1Cell);
     rowTemplate.appendChild(Quantity);
-    // rowTemplate.appendChild(qtyContainer);
     rowTemplate.appendChild(price2Cell);
     rowTemplate.appendChild(cros);
 
@@ -248,251 +209,38 @@ function createTableRows(dataList) {
   
     return rowTemplate;
   }
+ 
   
   // Données fictives pour illustrer le principe
-  const products = [
-    { title: 'Product 1', imageUrl: './images/product-1.png', price: 15000 },
-    { title: 'Product 2', imageUrl: './images/product-2.png', price: 15000 },
-    // Ajoutez d'autres produits ici...
-  ];
+let products = [
+    { title: 'Product 1', url: 'images/product-1.png', prix: 15000, quantite: 1 , name: 'product-1' },
+    { title: 'Product 2', url: 'images/product-2.png', prix: 15000, quantite: 3 , name: 'product-2' }
+];
   
   createTableRows(products);
-  
 
 
+function load_product() {
+    // document.getElementById('table').removeChild()
+    document.getElementById("table").deleteRow(0)
+    // for (let j = 0; j < products.length; j++) {
+
+        
+    // }
 
 
+    // products = []
+    // let pannier = JSON.parse(localStorage.getItem('pannier'))
+    // let product = { title: '', url: '', prix: 15000, quantite: 0 , name: '' }
 
+    // for (let i = 1; i <= pannier.length -1; i++) {
+    //     product.title = 'Product ' + i
+    //     product.url =pannier[i].url
+    //     product.prix =pannier[i].prix
+    //     product.quantite =pannier[i].quantite
+    //     product.name =pannier[i].name
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function createRow(data) {
-//     // const rowTemplate = document.createElement('tr');
-  
-//     // const productThumbnailCell = document.createElement('td');
-//     // const imgElement = document.createElement('img');
-//     // imgElement.src = data.imageUrl;
-//     // imgElement.alt = 'Image';
-//     // imgElement.classList.add('img-fluid');
-//     // productThumbnailCell.appendChild(imgElement);
-  
-//     // const productNameCell = document.createElement('td');
-//     // const h2Element = document.createElement('h2');
-//     // h2Element.className = 'h5 text-black';
-//     // h2Element.innerText = data.title;
-//     // productNameCell.appendChild(h2Element);
-  
-//     // const price1Cell = document.createElement('td');
-//     // const spanPrice1Label = document.createElement('span');
-//     // spanPrice1Label.id = 'price' + data.index + '1';
-//     // spanPrice1Label.innerText = `${data.price} XAF`;
-//     // price1Cell.appendChild(spanPrice1Label);
-  
-//     // const qtyContainer = document.createElement('td');
-
-
-//     const rowTemplate = document.createElement('tr');
-
-//     const productThumbnailCell = document.createElement('td');
-//     const imgElement = document.createElement('img');
-//     imgElement.src = data.imageUrl;
-//     imgElement.alt = 'Image';
-//     imgElement.classList.add('img-fluid');
-//     productThumbnailCell.classList.add('product-thumbnail');
-//     productThumbnailCell.appendChild(imgElement);
-  
-//     const productNameCell = document.createElement('td');
-//     const h2Element = document.createElement('h2');
-//     h2Element.className = 'h5 text-black';
-//     h2Element.innerText = data.title;
-//     productNameCell.classList.add('product-name');
-//     productNameCell.appendChild(h2Element);
-  
-//     const price1Cell = document.createElement('td');
-//     const spanPrice1Label = document.createElement('span');
-//     spanPrice1Label.id = 'price' + data.index + '1';
-//     spanPrice1Label.innerText = `${data.price} XAF`;
-//     price1Cell.appendChild(spanPrice1Label);
-  
-//     const qtyContainer = document.createElement('td');
-//     qtyContainer.classList.add('quantity-container');
-  
-
-
-
-
-
-
-//     const inputQtyAmount = document.createElement('input');
-//     inputQtyAmount.type = 'text';
-//     inputQtyAmount.className = 'form-control text-center quantity-amount';
-//     inputQtyAmount.placeholder = '';
-//     inputQtyAmount.ariaLabel = 'Example text with button addon';
-//     inputQtyAmount.setAttribute('aria-describedby', 'button-addon1');
-//     inputQtyAmount.value = '1';
-  
-//     const decreaseButton = document.createElement('button');
-//     decreaseButton.className = 'btn btn-outline-black decrease';
-//     decreaseButton.type = 'button';
-//     decreaseButton.innerText = '-';
-  
-//     const increaseButton = document.createElement('button');
-//     increaseButton.className = 'btn btn-outline-black increase';
-//     increaseButton.type = 'button';
-//     increaseButton.innerText = '+';
-  
-//     const buttonsGroup = document.createElement('div');
-//     buttonsGroup.className = 'input-group-append';
-//     buttonsGroup.appendChild(decreaseButton);
-//     buttonsGroup.appendChild(increaseButton);
-  
-//     qtyContainer.appendChild(inputQtyAmount);
-//     qtyContainer.appendChild(buttonsGroup);
-  
-//     rowTemplate.appendChild(productThumbnailCell);
-//     rowTemplate.appendChild(productNameCell);
-//     rowTemplate.appendChild(price1Cell);
-//     rowTemplate.appendChild(qtyContainer);
-//     rowTemplate.appendChild(document.createTextNode('')); // Crée un espace entre les colonnes
-//     rowTemplate.appendChild(document.createElement('td')); // Crée une colonne supplémentaire pour le bouton Supprimer
-//     rowTemplate.appendChild(document.createElement('a')); // Crée un lien pour le bouton Supprimer
-//     const removeBtn = document.createElement('a');
-//     removeBtn.href = '#';
-//     removeBtn.className = 'btn btn-black btn-sm';
-//     removeBtn.innerText = 'X';
-//     rowTemplate.appendChild(removeBtn);
-  
-//     return rowTemplate;
-//   }
-  
-//   // Fonction principale pour créer les lignes de la table
-//   function createRowsFromData(dataList) {
-//     let index = 1;
-//     for (const item of dataList) {
-//       const row = createRow({ ...item, index });
-//       row.id = 'row' + index++;
-//       tableBody.appendChild(row.cloneNode(true));
-//     }
-//   }
-  
-//   // Données fictives pour illustrer le principe
-//   const products = [
-//     { title: 'Product 1', imageUrl: './images/product-1.png', price: 15000 },
-//     { title: 'Product 3', imageUrl: './images/product-2.png', price: 15000 },
-//     // Ajoutez d'autres produits ici...
-//   ];
-  
-//   createRowsFromData(products);
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function createRow(data) {
-//     // const tableBody = document.getElementById('table');
-//     const rowTemplate = document.createElement('tr');
-  
-//     const productThumbnailCell = document.createElement('td');
-//     const imgElement = document.createElement('img');
-//     imgElement.src = data.imageUrl;
-//     imgElement.alt = 'Image';
-//     imgElement.classList.add('img-fluid');
-//     productThumbnailCell.appendChild(imgElement);
-  
-//     const productNameCell = document.createElement('td');
-//     const h2Element = document.createElement('h2');
-//     h2Element.className = 'h5 text-black';
-//     h2Element.innerText = data.title;
-//     productNameCell.appendChild(h2Element);
-  
-//     const price1Cell = document.createElement('td');
-//     const spanPrice1Label = document.createElement('span');
-//     spanPrice1Label.id = 'price11';
-//     spanPrice1Label.innerText = `${data.price} XAF`;
-//     price1Cell.appendChild(spanPrice1Label);
-  
-//     const qtyContainer = document.createElement('td');
-//     const inputQtyAmount = document.createElement('input');
-//     inputQtyAmount.type = 'text';
-//     inputQtyAmount.className = 'form-control text-center quantity-amount';
-//     inputQtyAmount.placeholder = '';
-//     inputQtyAmount.ariaLabel = 'Example text with button addon';
-//     inputQtyAmount.setAttribute('aria-describedby', 'button-addon1');
-//     inputQtyAmount.value = '1';
-  
-//     const decreaseButton = document.createElement('button');
-//     decreaseButton.className = 'btn btn-outline-black decrease';
-//     decreaseButton.type = 'button';
-//     decreaseButton.innerText = '-';
-  
-//     const increaseButton = document.createElement('button');
-//     increaseButton.className = 'btn btn-outline-black increase';
-//     increaseButton.type = 'button';
-//     increaseButton.innerText = '+';
-  
-//     const buttonsGroup = document.createElement('div');
-//     buttonsGroup.className = 'input-group-append';
-//     buttonsGroup.appendChild(decreaseButton);
-//     buttonsGroup.appendChild(increaseButton);
-  
-//     qtyContainer.appendChild(inputQtyAmount);
-//     qtyContainer.appendChild(buttonsGroup);
-  
-//     const removeBtn = document.createElement('a');
-//     removeBtn.href = '#';
-//     removeBtn.className = 'btn btn-black btn-sm';
-//     removeBtn.innerText = 'X';
-  
-//     rowTemplate.appendChild(productThumbnailCell);
-//     rowTemplate.appendChild(productNameCell);
-//     rowTemplate.appendChild(price1Cell);
-//     rowTemplate.appendChild(qtyContainer);
-//     rowTemplate.appendChild(document.createTextNode('')); // Crée un espace entre les colonnes
-//     rowTemplate.appendChild(document.createElement('td')); // Crée une colonne supplémentaire pour le bouton Supprimer
-//     rowTemplate.appendChild(removeBtn);
-  
-//     return rowTemplate;
-//   }
-  
-//   // Fonction principale pour créer les lignes de la table
-//   function createRowsFromData(dataList) {
-//     for (const item of dataList) {
-//       const row = createRow(item);
-//       tableBody.appendChild(row.cloneNode(true));
-//     }
-//   }
-  
-//   // Données fictives pour illustrer le principe
-//   const products = [
-//     { title: 'Product 1', imageUrl: './images/product-1.png', price: 15000 },
-//     { title: 'Product 1', imageUrl: './images/product-1.png', price: 15000 },
-//     // Ajoutez d'autres produits ici...
-//   ];
-  
-//   createRowsFromData(products);
-  
+    //     products.push(product)       
+    // }
+    // createTableRows(products);
+}
