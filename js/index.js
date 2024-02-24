@@ -1,6 +1,6 @@
-// foction pour supprimer un local storage
-        // localStorage.removeItem('cle_de_lelement');
-        localStorage.clear();
+// foction pour supprimer un local storage , decommentez la ligne 3 pour effacer le local storage
+        //1- localStorage.removeItem('cle_de_lelement');
+        //  localStorage.clear();
 
 // contiend tout les elements relatif au panier (non pull, url , la quantite, et le prix)
 let pannier = [];
@@ -40,16 +40,26 @@ function getLocalStorage() {
         // localStorage.removeItem('cle_de_lelement');
         // localStorage.clear();
 
-// stockage du panier dans le local storage
-setLocalStorage('pannier',pannier);
 
 
-// definition de la valeur de depart du contenu du panier
-document.getElementById("count").innerHTML= getLocalStorage('pannier');
 
-console.log(document.getElementById("product-1"))
+function init() {
+    if (localStorage.getItem('init_value') == null) {
+        // stockage du panier dans le local storage
+        setLocalStorage('pannier',pannier);
+        let init_value = 1;
+        setLocalStorage('init_value',init_value)
+    }
+    // definition de la valeur de depart du contenu du panier
+    document.getElementById("count").innerHTML= getLocalStorage('pannier');
+}
+init() 
+
 
   
+
+
+
 
 
 // fonction pour ajouter une commande dans le panier de l'utilsateur
@@ -72,7 +82,7 @@ function add(id) {
         commande.name = id
         commande.url = src1+id+src2 
         commande.quantite = 1
-        commande.prix = 0
+        commande.prix = 1500
 
         pannier.push(commande)
     }
@@ -82,7 +92,7 @@ function add(id) {
                 pannier[i].quantite +=1;
 
                 setLocalStorage('pannier', pannier);
-                console.log(pannier)
+                console.log(JSON.parse(localStorage.getItem('pannier')))
                 return 0 ;
             }
             
@@ -90,14 +100,14 @@ function add(id) {
         commande.name = id
         commande.url = src1+id+src2 
         commande.quantite = 1
-        commande.prix = 0
+        commande.prix = 1500
 
         pannier.push(commande)
     }
     
  
     setLocalStorage('pannier', pannier);
-    console.log(pannier)
+    console.log(JSON.parse(localStorage.getItem('pannier')))
 }   
 
 
@@ -117,7 +127,7 @@ function createTableRows(dataList) {
     }
   }
   
-  function createRow(data) {
+function createRow(data) {
     
     const rowTemplate = document.createElement('tr');
 
@@ -154,7 +164,6 @@ function createTableRows(dataList) {
                 buttondivdivQuantity.className = 'btn btn-outline-black decrease';
                 buttondivdivQuantity.type = 'button';
                 buttondivdivQuantity.innerHTML = '&minus;'
-                // buttondivdivQuantity.innerText = '-'
         divdivQuantity.appendChild(buttondivdivQuantity)
 
         const inputdivQuantity = document.createElement('input');
@@ -170,7 +179,6 @@ function createTableRows(dataList) {
                 button2divdivQuantity.className = 'btn btn-outline-black increase';
                 button2divdivQuantity.type = 'button';
                 button2divdivQuantity.innerHTML = '&plus;'
-                // button2divdivQuantity.innerText = '+'
         div2divQuantity.appendChild(button2divdivQuantity)
 
     divQuantity.appendChild(divdivQuantity)
@@ -208,39 +216,45 @@ function createTableRows(dataList) {
 
   
     return rowTemplate;
-  }
+}
  
   
   // Données fictives pour illustrer le principe
 let products = [
     { title: 'Product 1', url: 'images/product-1.png', prix: 15000, quantite: 1 , name: 'product-1' },
-    { title: 'Product 2', url: 'images/product-2.png', prix: 15000, quantite: 3 , name: 'product-2' }
+    { title: 'Product 2', url: 'images/product-2.png', prix: 15000, quantite: 3 , name: 'product-2' },
 ];
   
-  createTableRows(products);
 
+createTableRows(products);
 
 function load_product() {
-    // document.getElementById('table').removeChild()
-    document.getElementById("table").deleteRow(0)
-    // for (let j = 0; j < products.length; j++) {
+
+
+    while (document.getElementById('table1').rows.length > 2) {
+        document.getElementById('table1').deleteRow(2);
+    }   
+
+    products = []
+
+
+    let pannier = JSON.parse(localStorage.getItem('pannier'))
+    let product = { title: '', url: '', prix: 15000, quantite: 0 , name: '' }
+    console.log(pannier)
+
+    for ( i = 1; i <= pannier.length -1; i++) {
+        product.title = 'Product ' + i
+        product.url =pannier[i].url
+        product.prix =pannier[i].prix
+        product.quantite =pannier[i].quantite
+        product.name =pannier[i].name
 
         
-    // }
 
-
-    // products = []
-    // let pannier = JSON.parse(localStorage.getItem('pannier'))
-    // let product = { title: '', url: '', prix: 15000, quantite: 0 , name: '' }
-
-    // for (let i = 1; i <= pannier.length -1; i++) {
-    //     product.title = 'Product ' + i
-    //     product.url =pannier[i].url
-    //     product.prix =pannier[i].prix
-    //     product.quantite =pannier[i].quantite
-    //     product.name =pannier[i].name
-
-    //     products.push(product)       
-    // }
-    // createTableRows(products);
+        // alert(product.url)
+        // // console.log(product)
+        // console.log(products)      
+    }
+    products.push(product)
+    createTableRows(products);
 }
