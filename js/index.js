@@ -222,7 +222,7 @@ function createRow(data) {
 
                 setLocalStorage('pannier', basket);
 
-                // definition de la valeur de depart du contenu du panier
+                // definition de la valeur de depart du  contenu du panier
                 document.getElementById("count").innerHTML= getLocalStorage('pannier');
 
                 console.log(JSON.parse(localStorage.getItem('pannier')))
