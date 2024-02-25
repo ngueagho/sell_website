@@ -206,7 +206,34 @@ function createRow(data) {
     acros.id = '';
     acros.className = 'btn btn-black btn-sm'
     acros.innerText = 'X';
-    acros.href = '#';
+    // acros.href = '#';
+    acros.onclick = function() {
+        alert(data.name);
+        let basket = JSON.parse(localStorage.getItem('pannier'))
+
+        for (let i = 1; i <= basket.length-1 ; i++) {
+            if (basket[i].name == data.name) {
+
+                
+                basket[0] -=  basket[i].quantite;
+
+                // suppresion de l'element selectionne
+                basket.splice(i, 1);
+
+                setLocalStorage('pannier', basket);
+
+                // definition de la valeur de depart du contenu du panier
+                document.getElementById("count").innerHTML= getLocalStorage('pannier');
+
+                console.log(JSON.parse(localStorage.getItem('pannier')))
+                load_product()
+            }
+            
+        }
+
+
+    };
+
     cros.appendChild(acros);
 
   
