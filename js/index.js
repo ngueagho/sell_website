@@ -5,6 +5,10 @@
 // contiend tout les elements relatif au panier (non pull, url , la quantite, et le prix)
 let pannier = [];
 
+setLocalStorage('product_id',1)
+setLocalStorage('total_amount',0)
+
+
 // je definit le total du contenu du panier
 total_elements = 0;
 
@@ -82,7 +86,7 @@ function add(id) {
         commande.name = id
         commande.url = src1+id+src2 
         commande.quantite = 1
-        commande.prix = 1500
+        commande.prix = 15000
 
         pannier.push(commande)
     }
@@ -100,7 +104,7 @@ function add(id) {
         commande.name = id
         commande.url = src1+id+src2 
         commande.quantite = 1
-        commande.prix = 1500
+        commande.prix = 15000
 
         pannier.push(commande)
     }
@@ -124,15 +128,19 @@ function createTableRows(dataList) {
     for (const item of dataList) {
       const row = createRow(item);
       tbody.appendChild(row);
+      setLocalStorage('product_id',(parseInt(localStorage.getItem('product_id'))+1))
     }
+
+    // affectation du montant total a la vie indique dans la page su panier
+    document.getElementById("subtotal").innerHTML =localStorage.getItem('total_amount')
+    document.getElementById("total").innerHTML =localStorage.getItem('total_amount')
+ 
+    setLocalStorage('product_id',1)
   }
   
 function createRow(data) {
     
     const rowTemplate = document.createElement('tr');
-
-    
-  
     const productThumbnailCell = document.createElement('td');
     const imgElement = document.createElement('img');
     imgElement.src = data.url;
@@ -144,7 +152,8 @@ function createRow(data) {
     const productNameCell = document.createElement('td');
     const h2Element = document.createElement('h2');
     h2Element.className = 'h5 text-black';
-    h2Element.innerText = data.title;
+    h2Element.innerText = 'Product '+localStorage.getItem('product_id')
+
     productNameCell.classList.add('product-name');
     productNameCell.appendChild(h2Element); 
   
@@ -218,15 +227,9 @@ function createRow(data) {
     return rowTemplate;
 }
  
-  
-  // Données fictives pour illustrer le principe
-let products = [
-    { title: 'Product 1', url: 'images/product-1.png', prix: 15000, quantite: 1 , name: 'product-1' },
-    { title: 'Product 2', url: 'images/product-2.png', prix: 15000, quantite: 3 , name: 'product-2' },
-];
-  
 
-createTableRows(products);
+
+let produits = []
 
 function load_product() {
 
@@ -235,26 +238,18 @@ function load_product() {
         document.getElementById('table1').deleteRow(2);
     }   
 
-    products = []
+    produits = []
 
 
     let pannier = JSON.parse(localStorage.getItem('pannier'))
-    let product = { title: '', url: '', prix: 15000, quantite: 0 , name: '' }
-    console.log(pannier)
 
     for ( i = 1; i <= pannier.length -1; i++) {
-        product.title = 'Product ' + i
-        product.url =pannier[i].url
-        product.prix =pannier[i].prix
-        product.quantite =pannier[i].quantite
-        product.name =pannier[i].name
 
-        
+        // nouveau calcul du montant total des achats
+        setLocalStorage('total_amount',((parseInt(localStorage.getItem('total_amount')))+(pannier[i].prix*pannier[i].quantite)))
+        produits.push( pannier[i])
 
-        // alert(product.url)
-        // // console.log(product)
-        // console.log(products)      
     }
-    products.push(product)
-    createTableRows(products);
+    
+    createTableRows(produits);
 }
