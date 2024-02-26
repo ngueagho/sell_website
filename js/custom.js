@@ -136,6 +136,7 @@ function send_whatsapp_sms() {
 	url = "https://wa.me/" + phonenumber + "?text="
 	+" *Message :* "+message+ "%0a"
 	+" *Message :* "+message+ "%0a%0a"
+	+"&source=" + encodeURIComponent("images/product-3.png");
 	+"this is n example of message send by whatsapp";
 
 	window.open(url, '_blank').focus();
