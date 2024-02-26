@@ -1,9 +1,49 @@
+
 // foction pour supprimer un local storage , decommentez la ligne 3 pour effacer le local storage
         //1- localStorage.removeItem('cle_de_lelement');
         //  localStorage.clear();
 
 // contiend tout les elements relatif au panier (non pull, url , la quantite, et le prix)
 let pannier = [];
+
+
+
+
+function sendMessage(message){
+    const mainEl = document.querySelector('#main')
+    const textareaEl = mainEl.querySelector('div[contenteditable="true"]')
+  
+    if(!textareaEl) {
+      throw new Error('There is no opened conversation')
+    }
+  
+    textareaEl.focus()
+    document.execCommand('insertText', false, message)
+    textareaEl.dispatchEvent(new Event('change', { bubbles: true }))
+  
+    setTimeout(() => {
+      (mainEl.querySelector('[data-testid="send"]') || mainEl.querySelector('[data-icon="send"]')).click()
+    }, 100)
+  }
+  
+//   const restAPI = whatsAppClient.restAPI({
+//     idInstance: "YOUR_ID_INSTANCE",
+//     apiTokenInstance: "YOUR_API_TOKEN_INSTANCE",
+//   });
+//   restAPI.message
+//     .sendMessage("79999999999@c.us", null, "hello world")
+//     .then((data) => {
+//       console.log(data);
+//     })
+//     .catch((reason) => {
+//       console.error(reason);
+//     });
+
+// response = requests.post(url, headers=headers, json=data)
+
+// print(response.text)
+
+
 
 setLocalStorage('product_id',1)
 setLocalStorage('total_amount',0)
@@ -56,6 +96,7 @@ function init() {
     }
     // definition de la valeur de depart du contenu du panier
     document.getElementById("count").innerHTML= getLocalStorage('pannier');
+    
 }
 init() 
 
@@ -173,6 +214,28 @@ function createRow(data) {
                 buttondivdivQuantity.className = 'btn btn-outline-black decrease';
                 buttondivdivQuantity.type = 'button';
                 buttondivdivQuantity.innerHTML = '&minus;'
+                buttondivdivQuantity.onclick = function() {
+                    let basket = JSON.parse(localStorage.getItem('pannier'))
+            
+                    for (let i = 1; i <= basket.length-1 ; i++) {
+                        if (basket[i].name == data.name) {
+
+                            basket[0] -=  1;
+                            
+                            basket[i].quantite -=  1;
+            
+                            setLocalStorage('pannier', basket);
+            
+                            // definition de la valeur de depart du  contenu du panier
+                            document.getElementById("count").innerHTML= getLocalStorage('pannier');
+            
+                            load_product()
+                        }
+                        
+                    }
+                }
+
+
         divdivQuantity.appendChild(buttondivdivQuantity)
 
         const inputdivQuantity = document.createElement('input');
@@ -182,12 +245,37 @@ function createRow(data) {
             inputdivQuantity.ariaLabel = 'Example text with button addon';
             inputdivQuantity.ariaDescribedBy = 'button-addon1';
             inputdivQuantity.value = `${data.quantite}`;
+
         const div2divQuantity = document.createElement('div');
             div2divQuantity.className = 'input-group-append';
             const button2divdivQuantity = document.createElement('button');
                 button2divdivQuantity.className = 'btn btn-outline-black increase';
                 button2divdivQuantity.type = 'button';
                 button2divdivQuantity.innerHTML = '&plus;'
+                button2divdivQuantity.onclick = function() {
+
+                    let basket = JSON.parse(localStorage.getItem('pannier'))
+            
+                    for (let i = 1; i <= basket.length-1 ; i++) {
+                        if (basket[i].name == data.name) {
+
+                            basket[0] +=  1;
+                            
+                            basket[i].quantite +=  1;
+                            // inputdivQuantity.value = basket[i].quantite
+            
+                            setLocalStorage('pannier', basket);
+            
+                            // definition de la valeur de depart du  contenu du panier
+                            document.getElementById("count").innerHTML= getLocalStorage('pannier');
+            
+                            load_product()
+                        }
+                        
+                    }
+            
+            
+                };
         div2divQuantity.appendChild(button2divdivQuantity)
 
     divQuantity.appendChild(divdivQuantity)
@@ -208,7 +296,6 @@ function createRow(data) {
     acros.innerText = 'X';
     // acros.href = '#';
     acros.onclick = function() {
-        alert(data.name);
         let basket = JSON.parse(localStorage.getItem('pannier'))
 
         for (let i = 1; i <= basket.length-1 ; i++) {
@@ -225,7 +312,6 @@ function createRow(data) {
                 // definition de la valeur de depart du  contenu du panier
                 document.getElementById("count").innerHTML= getLocalStorage('pannier');
 
-                console.log(JSON.parse(localStorage.getItem('pannier')))
                 load_product()
             }
             
@@ -253,6 +339,8 @@ function createRow(data) {
   
     return rowTemplate;
 }
+
+
  
 
 
