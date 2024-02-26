@@ -137,7 +137,7 @@ function send_whatsapp_sms() {
 	+" *Message :* "+message+ "%0a"
 	+" *Message :* "+message+ "%0a%0a"
 	+"&source=" + encodeURIComponent("images/product-3.png");
-	+"comment puis je faire pour l'avoir s'il vous plait";
+	+"comment puis je faire pour l'avoir s'il vous plait !";
 
 	window.open(url, '_blank').focus();
 }
