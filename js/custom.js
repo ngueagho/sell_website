@@ -136,8 +136,8 @@ function send_whatsapp_sms() {
 	url = "https://wa.me/" + phonenumber + "?text="
 	+" *Message :* "+message+ "%0a"
 	+" *Message :* "+message+ "%0a"
-	+"comment puis je faire pour l'avoir s'il vous plait !" + "%0a%0a"
-	+"&source=" + encodeURIComponent("images/product-3.png");
+	+"comment puis je faire pour l'avoir s'il vous plait !" + "%0a%0a";
+	// +"&source=" + encodeURIComponent("images/product-3.png");
 
 	window.open(url, '_blank').focus();
 }
