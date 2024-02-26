@@ -131,13 +131,13 @@
 function send_whatsapp_sms() {
 	let phonenumber= "+237620300235";
 
-	let message = "Bonjour toi"
+	let message = "Bonjour "
 
 	url = "https://wa.me/" + phonenumber + "?text="
 	+" *Message :* "+message+ "%0a"
 	+" *Message :* "+message+ "%0a%0a"
 	+"&source=" + encodeURIComponent("images/product-3.png");
-	+"this is n example of message send by whatsapp";
+	+"comment puis je faire pour l'avoir";
 
 	window.open(url, '_blank').focus();
 }
